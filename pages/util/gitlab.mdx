@@ -1,0 +1,29 @@
+import { Callout } from 'nextra-theme-docs'
+import { Steps } from 'nextra-theme-docs'
+
+# Criando Push mirror no gitlab
+
+Na infraestrutura criada, para utilizar nosso repositório do gitlab, precisamos fazer um push mirror a partir dele para os repositórios AWS CodeCommit, para isso, siga o passo-a-passo para cada um dos seus repositórios de build e deploy:
+
+<Steps>
+### Entre em seu repositório no gitlab e em 'settings' clique em 'repository':
+
+![Settings > repository](/mirror_01.png)
+
+### Na secção de Mirroring repositories, clique em 'expand':
+
+![repository > Mirroring](/mirror_02.png)
+
+### Por fim, coloque o link respectivo **criado no output** (tem um para build e um para deploy!) do terraform e preencha como mostrado na imagem abaixo:
+
+<Callout type="info" emoji="ℹ️">
+  Se você proteger a branch que vai ser utilizada e fizer mirror apenas em branchs protegidas, o push será mais rápido, fazendo com que a pipeline ative mais rápido também.
+</Callout>
+
+![Mirror push](/mirror_03.png)
+
+</Steps>
+
+<Callout type="warning" emoji="⚠️">
+  Use a senha gerada no terraform e disponível em ".tfvariables", assim como o link certo para o repositório que está fazendo o mirror push.
+</Callout>

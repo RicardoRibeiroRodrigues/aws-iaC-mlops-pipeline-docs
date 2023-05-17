@@ -1,0 +1,5 @@
+{
+    "gitlab": "Push mirror gitlab",
+    "erro_build": "Erro no build",
+    "docker": "Usando o docker para rodar o projeto"
+}

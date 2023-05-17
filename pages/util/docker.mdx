@@ -1,0 +1,22 @@
+import { Steps } from 'nextra-theme-docs'
+ 
+
+# Utilizando a imagem do projeto:
+
+Para utilizar a imagem criada para o projeto, é necessário primeiro fazer o build nela:
+
+<Steps>
+ 
+### Rode este comando na raiz do projeto:
+ 
+```sh copy
+docker build -t pipeline/terraform-proj .
+```
+ 
+### Em seguida para ativar a imagem:
+ 
+```sh copy
+./run_docker.sh
+```
+ 
+</Steps>

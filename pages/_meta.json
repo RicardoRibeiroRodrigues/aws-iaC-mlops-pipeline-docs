@@ -1,7 +1,10 @@
 {
-  "index": "Introduction",
+  "index": "Introdução",
+  "infraestrutura": "Infraestrutura",
   "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "terraform": "Terraform",
+  "criando_infra": "Criando a Infraestrutura",
+  "util": "Útil",
   "about": {
     "title": "About",
     "type": "page"
@@ -9,7 +12,7 @@
   "contact": {
     "title": "Contact ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://github.com/RicardoRibeiroRodrigues",
     "newWindow": true
   }
 }
