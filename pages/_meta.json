@@ -4,6 +4,7 @@
   "another": "Another Page",
   "terraform": "Terraform",
   "criando_infra": "Criando a Infraestrutura",
+  "destroindo_infra": "Destruindo a Infraestrutura 😢",
   "util": "Útil",
   "about": {
     "title": "About",

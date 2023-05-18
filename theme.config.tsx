@@ -16,6 +16,9 @@ const config: DocsThemeConfig = {
   footer: {
     text: 'Documentação do projeto',
   },
+  sidebar: {
+    defaultMenuCollapseLevel: 1,
+  },
 }
 
 export default config

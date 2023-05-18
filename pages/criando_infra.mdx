@@ -1,3 +1,98 @@
+import { Callout } from 'nextra-theme-docs'
+import { Steps } from 'nextra-theme-docs'
+import { Tab, Tabs } from 'nextra-theme-docs'
+
 ## Como criar a infraestrutura ??
 
-Para criar 
+Para replicar a infraestrutura, siga os seguintes passos:
+
+<Steps>
+### Clone o repositório do github com o terraform e os templates:
+```sh copy
+git clone https://github.com/RicardoRibeiroRodrigues/AWS-IaC-mlops-pipeline
+```
+
+### Crie os repositórios no gitlab (1 para deploy e 1 para build) ou use repositórios já criados:
+
+<Callout type="warning" emoji="⚠️">
+    O repositório deve estar vazio para não dar problema na hora de colocar os templates nele.
+</Callout>
+
+<Tabs items={['Interface web', 'cli']}>
+  <Tab>
+  Siga o [tutorial do gitlab de como criar um projeto](https://docs.gitlab.com/ee/user/project/index.html#create-a-project)
+  </Tab>
+  <Tab>
+    COLOCAR UM ARQUIVO PYTHON PRA CRIAR OS REPOS.
+  </Tab>
+</Tabs>
+
+### Colocando os templates no seus repositórios.
+
+Siga os passos [do README do repositório](https://github.com/RicardoRibeiroRodrigues/AWS-IaC-mlops-pipeline/blob/main/templates/README.md) para colocar os templates nos seus repositórios
+
+### Exporte suas credenciais da AWS para o seu env: [#credenciais]
+
+[Gerando essas credenciais](https://docs.aws.amazon.com/pt_br/powershell/latest/userguide/pstools-appendix-sign-up.html)
+
+<Callout type="warning" emoji="⚠️">
+    É recomendado utilizar o docker do projeto, já que é necessário uma versão recente do terraform. Para ver como utilizar, veja [a página sobre o docker](/util/docker).
+</Callout>
+
+```.env copy
+export AWS_ACCESS_KEY_ID=<SUA ACCESS KEY>
+export AWS_SECRET_ACCESS_KEY=<SUA SECRET ACESS KEY>
+```
+
+### Agora podemos rodar o terraform!
+Na pasta terraform:
+```sh copy
+terraform init
+terraform plan -out pipeline_plan
+```
+Você deve ver no terminal todos os recursos que serão criados, para prosseguir:
+```sh copy
+terraform apply "pipeline_plan"
+```
+Ele deve mostrar passo a passo a criação da infra, ao finalizar, você verá algumas saídas no terminal.
+
+### Criando o push mirror no gitlab. 
+
+No terminal, devem ter algumas saídas: 
+- mirror_url_build.
+- mirror_url_deploy.
+- mirror_git_password (essa deve não sai no terminal, fica em terraform.tfstate).
+
+Com essas saídas, podemos fazer o [push mirror no gitlab](/util/gitlab).
+
+### Feito isso, a pipeline está no ar, agora você pode: [#testando]
+
+<Tabs items={['Forçar o push', 'Fazer commit']}>
+  <Tab>
+    (COLOCAR IMAGEM DE COMO Forçar O PUSH)
+  </Tab>
+  <Tab>
+    Altere alguma coisa para seu objetivo nos repositórios do gitlab, dê commit e push, você deve ver a pipeline iniciando em alguns minutos.
+  </Tab>
+</Tabs>
+
+### Supervisionando deploy.
+
+<Callout type="warning" emoji="⚠️">
+    Para o deploy e o build funcionarem, é necessário que a etapa anterior tenha sido feita para ambos os repositórios.
+    **É esperado também, que a primeira execução da pipeline de deploy falhe**, já que o modelo da etapa de build não deve ter sido registrado ainda, mas ao ter o código da pipeline de deploy no CodeCommit e o build ter sucesso, o próximo deploy dará certo também!
+</Callout>
+
+Paciência! é esperado que a pipeline demore um pouco, afinal, estamos criando a infra para cada etapa, e treinando um modelo, isso leva tempo!
+
+Caso todos os passos tenham sido executados com sucesso, a pipeline de build deve ser executada com sucesso, e o modelo deve ter sido registrado com sucesso pelo SageMaker, nesse caso, você verá que a pipeline de deploy começará automaticamente, e registrará um endpoint de teste, além de pedir a sua aprovação para fazer deploy de um endpoint de produção, dada a aprovação, o deploy de produção começa e ao fim dele, temos o fim de nossa pipeline.
+
+<Callout type="info" >
+  Feito o deploy, você pode [testar os endpoints](/util/testando_endpoint).
+</Callout>
+
+</Steps>
+
+<Callout type="warning" emoji="⚠️">
+    Caso a pipeline de build tenha dado erro na etapa de build, muito provavelmente a sua conta não tem acesso às instâncias necessárias para o SageMaker, [veja um passo-a-passo de como resolver isso](/util/erro_build).
+</Callout>

@@ -1,5 +1,6 @@
 {
     "gitlab": "Push mirror gitlab",
     "erro_build": "Erro no build",
-    "docker": "Usando o docker para rodar o projeto"
+    "docker": "Usando o docker para rodar o projeto",
+    "testando_endpoint": "Testando o endpoint"
 }
