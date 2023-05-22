@@ -1,10 +1,19 @@
 # Introdução
 
-Neste repositório está contida a documentação criada para o projeto [pipeline mlops iac](https://github.com/RicardoRibeiroRodrigues/AWS-IaC-mlops-pipeline), para que seja possível replicar fácilmente a infraestrutura criada nele, assim como facilitar modificações e seu uso.
+Neste repositório está contida a documentação criada para o projeto [pipeline mlops iac](https://github.com/RicardoRibeiroRodrigues/AWS-IaC-mlops-pipeline), para que seja possível replicar facilmente a infraestrutura criada nele, assim como facilitar modificações e seu uso.
 
-## Para que serve este projeto ? 
+## AWS CodePipeline
 
-Esse serviço tem como base a expansão da importância da integração contínua e da entrega contínua (CI/CD), o primeiro tem como seu objetivo encontrar e investigar erros mais rapidamente, melhorar a qualidade do código, além de reduzir o tempo necessário para validar e lançar novas atualizações de software, já é a automatização da criação, teste e preparação do código para produção quando alterado, essa prática estende da integração contínua, implantando as alterações em ambientes de teste e/ou ambiente de produção. Esses dois juntos são parte fundamental da área de DevOps, que vem como uma solução de automatizar deploys, que antes eram manuais e demorados, além de contribuir para identificar bugs com antecedência e criar código de maior qualidade.
-Além do DevOps tradicional, foi criado com o avanço das tecnologias de Inteligência Artificial, o MlOps, que segue a mesma lógica do DevOps, só que para o desenvolvimento de serviços e modelos relacionados a Machine Learning. A maior diferença se dá no de que no MlOps, o modelo deve ser treinado no pipeline, e o teste deste é um pouco mais complexo que os testes de softwares mais “tradicionais”.
+Esse serviço é fundamentado na crescente importância da integração contínua e entrega contínua (CI/CD). A integração contínua busca encontrar e investigar erros de forma mais ágil, melhorar a qualidade do código e reduzir o tempo necessário para validar e lançar novas atualizações de software. Por sua vez, a entrega contínua automatiza a criação, teste e preparação do código para produção, possibilitando a implantação de alterações em ambientes de teste e/ou produção de maneira eficiente.
 
-Ferramenta da aws para automatizar pipelines de entrega contínua, oferecendo atualizações rápidas e confiáveis de aplicações e infraestruturas. Um exemplo de pipeline é a partir de uma mudança no código fonte (em um commit no git por exemplo), você ter um código que automaticamente compila a nova versão, roda os testes, e caso tudo corra bem nesse processo, você prepara a nova versão para deploy.
+Essas práticas desempenham um papel fundamental na área de DevOps, oferecendo uma solução para automatizar implantações que anteriormente eram manuais e demoradas. Além disso, contribuem para a identificação antecipada de bugs e a criação de código de maior qualidade.
+
+O AWS CodePipeline é a ferramenta da AWS, que possibilita criar pipelines de **CI/CD** que automatizam todo o fluxo de trabalho, desde a obtenção do código-fonte até a implantação final do aplicativo. Com essa ferramenta, podemos compilar código, fazer testes e até fazer etapas personalizadas, que será o uso dessa para este projeto.
+
+![pipeline ci-cd img](https://blog.xpeducacao.com.br/wp-content/uploads/2022/11/pipeline-ci-cd-em-softwares.png)
+
+## Objetivo deste projeto
+
+Além do DevOps "tradicional", com o avanço das tecnologias de Inteligência Artificial, surge também o MlOps, que segue a mesma ideia do DevOps, só que para o desenvolvimento de serviços e modelos relacionados a **Machine Learning**. A maior diferença se dá no de que no MlOps, o modelo muitas vezes deve ser treinado dentro do pipeline, e o teste deste é um pouco diferente que os testes de softwares mais "tradicionais".
+
+Com objetivo de trazer uma solução de CI/CD para machine learning, este projeto foca em desenvolver uma pipeline, utilizando serviços da AWS, como **CodePipeline**, **CodeCommit**, **SageMaker** entre outros, para integrar com código em repositórios Gitlab, e ir desde a obtenção do código fonte, passando pelo treinamento do modelo, avaliação de desempenho chegando até o deploy deste modelo em endpoints, para que o modelo possa ser utilizado como em serviços.

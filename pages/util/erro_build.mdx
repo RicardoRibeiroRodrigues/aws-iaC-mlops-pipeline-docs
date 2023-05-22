@@ -1,8 +1,35 @@
+import { Callout } from 'nextra-theme-docs'
+import { Steps } from 'nextra-theme-docs'
+
 # Erro na etapa de build da infraestrutura
 
 Caso sua infraestrutura dê um erro na etapa de build, é possível que sua conta não tenha habilitado nas quotas de serviço a máquina mínima para treino no SageMaker (ou alguma outra utilizada que sua conta tenha bloqueado), que é a instância "ml.m5.large", para consertar isso, é possível fazer uma requisição pelo uso desse tipo de instância nas "quotas de serviço", segue um passo a passo de como fazer isso:
 
-1. No console da AWS, 
+<Steps>
+
+### Entre no dashboard das quotas de serviço do SageMaker:
+
+https://us-east-1.console.aws.amazon.com/servicequotas/home/services/sagemaker/quotas
+
+Troque o us-east-1 para a região que você estiver utilizando
+
+### Pesquise a instância que você utilizou para as etapas (nesse caso o ml.m5.large para o training):
+
+![Imagem quotas ml.m5.large](/quotas_servico_sagemaker.png)
+
+Aí temos as quotas para cada um dos usos do ml.m5.large, no caso da imagem eu já solicitei uma para uso em training, porém se na sua conta estiver com 0, isso causará erros no build da pipeline.
+
+### Clique para requisitar um aumento nas quotas.
+
+![Botão de aumentar as quotas](/quotas_servico_sagemaker.png)
+
+### Selecione o número desejado e clique em request.
+
+![request quota](/quotas_sm_req.png)
+
+Pronto, agora você vai ter que esperar a aprovação da requisição, e quando for aprovado, você pode ir nas pipelines e selecionar para rodar ela novamente.
+
+</Steps>
 
 # Referência
 

@@ -1,11 +1,10 @@
 {
   "index": "Introdução",
   "infraestrutura": "Infraestrutura",
-  "another": "Another Page",
   "terraform": "Terraform",
   "criando_infra": "Criando a Infraestrutura",
-  "destroindo_infra": "Destruindo a Infraestrutura 😢",
   "util": "Útil",
+  "destruindo_infra": "Destruindo a Infraestrutura 😢",
   "about": {
     "title": "About",
     "type": "page"

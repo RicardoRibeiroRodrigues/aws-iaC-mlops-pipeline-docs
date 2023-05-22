@@ -7,7 +7,7 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 Para replicar a infraestrutura, siga os seguintes passos:
 
 <Steps>
-### Clone o repositório do github com o terraform e os templates:
+### Clone o repositório do GitHub com o terraform e os templates:
 ```sh copy
 git clone https://github.com/RicardoRibeiroRodrigues/AWS-IaC-mlops-pipeline
 ```
@@ -18,14 +18,7 @@ git clone https://github.com/RicardoRibeiroRodrigues/AWS-IaC-mlops-pipeline
     O repositório deve estar vazio para não dar problema na hora de colocar os templates nele.
 </Callout>
 
-<Tabs items={['Interface web', 'cli']}>
-  <Tab>
-  Siga o [tutorial do gitlab de como criar um projeto](https://docs.gitlab.com/ee/user/project/index.html#create-a-project)
-  </Tab>
-  <Tab>
-    COLOCAR UM ARQUIVO PYTHON PRA CRIAR OS REPOS.
-  </Tab>
-</Tabs>
+Siga o [tutorial do gitlab de como criar um projeto](https://docs.gitlab.com/ee/user/project/index.html#create-a-project)
 
 ### Colocando os templates no seus repositórios.
 
@@ -35,13 +28,13 @@ Siga os passos [do README do repositório](https://github.com/RicardoRibeiroRodr
 
 [Gerando essas credenciais](https://docs.aws.amazon.com/pt_br/powershell/latest/userguide/pstools-appendix-sign-up.html)
 
-<Callout type="warning" emoji="⚠️">
+<Callout type="info">
     É recomendado utilizar o docker do projeto, já que é necessário uma versão recente do terraform. Para ver como utilizar, veja [a página sobre o docker](/util/docker).
 </Callout>
 
 ```.env copy
 export AWS_ACCESS_KEY_ID=<SUA ACCESS KEY>
-export AWS_SECRET_ACCESS_KEY=<SUA SECRET ACESS KEY>
+export AWS_SECRET_ACCESS_KEY=<SUA SECRET ACCESS KEY>
 ```
 
 ### Agora podemos rodar o terraform!
@@ -61,18 +54,20 @@ Ele deve mostrar passo a passo a criação da infra, ao finalizar, você verá a
 No terminal, devem ter algumas saídas: 
 - mirror_url_build.
 - mirror_url_deploy.
-- mirror_git_password (essa deve não sai no terminal, fica em terraform.tfstate).
+- mirror_git_password (essa não sai no terminal, fica em `terraform.tfstate`).
 
-Com essas saídas, podemos fazer o [push mirror no gitlab](/util/gitlab).
+Com essas saídas, podemos fazer o [**push mirror no gitlab**](/util/gitlab).
 
 ### Feito isso, a pipeline está no ar, agora você pode: [#testando]
 
-<Tabs items={['Forçar o push', 'Fazer commit']}>
+<Tabs items={['Forçar o update', 'Fazer commit']}>
   <Tab>
-    (COLOCAR IMAGEM DE COMO Forçar O PUSH)
+    Na página dos mirrors do repositório:
+
+    ![Forcando o update](/force_update.png)
   </Tab>
   <Tab>
-    Altere alguma coisa para seu objetivo nos repositórios do gitlab, dê commit e push, você deve ver a pipeline iniciando em alguns minutos.
+    Altere alguma coisa para seu objetivo nos repositórios do gitlab na branch selecionada para pipeline, dê commit e push, você deve ver a pipeline iniciando em alguns minutos.
   </Tab>
 </Tabs>
 
@@ -83,7 +78,7 @@ Com essas saídas, podemos fazer o [push mirror no gitlab](/util/gitlab).
     **É esperado também, que a primeira execução da pipeline de deploy falhe**, já que o modelo da etapa de build não deve ter sido registrado ainda, mas ao ter o código da pipeline de deploy no CodeCommit e o build ter sucesso, o próximo deploy dará certo também!
 </Callout>
 
-Paciência! é esperado que a pipeline demore um pouco, afinal, estamos criando a infra para cada etapa, e treinando um modelo, isso leva tempo!
+Paciência! é esperado que a pipeline demore um pouco, afinal, estamos criando a infraestrutura para cada etapa, e treinando um modelo, isso leva tempo!
 
 Caso todos os passos tenham sido executados com sucesso, a pipeline de build deve ser executada com sucesso, e o modelo deve ter sido registrado com sucesso pelo SageMaker, nesse caso, você verá que a pipeline de deploy começará automaticamente, e registrará um endpoint de teste, além de pedir a sua aprovação para fazer deploy de um endpoint de produção, dada a aprovação, o deploy de produção começa e ao fim dele, temos o fim de nossa pipeline.
 
