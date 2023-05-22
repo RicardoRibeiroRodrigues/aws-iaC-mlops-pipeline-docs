@@ -1,3 +1,6 @@
 {
-    "index": "Infraestrutura como código!"
+    "index": "Infraestrutura como código!",
+    "codeCommit": "AWS CodeCommit",
+    "pipelineBuild": "Pipeline de build",
+    "pipelineDeploy": "Pipeline de deploy"
 }

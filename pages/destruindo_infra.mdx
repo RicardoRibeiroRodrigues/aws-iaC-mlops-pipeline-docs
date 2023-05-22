@@ -1,0 +1,44 @@
+import { Callout } from 'nextra-theme-docs'
+import { Steps } from 'nextra-theme-docs'
+
+## Como destruir a infraestrutura
+
+
+<Steps>
+
+### Apagando os stacks do cloudformation:
+Antes de rodar o `terraform destroy`, precisamos apagar as stacks criadas no deploy do cloudformation, isso porque elas dependem da service role criada pelo terraform, para apagar essas stacks rode:
+
+```sh copy 
+python delete_cf_stacks.py
+```
+
+<Callout type='info' >
+    - Selecione no terminal apenas as que deseja apagar.
+    - As credenciais de acesso devem estar no seu env.
+</Callout>
+
+### Apagando os endpoints do SageMaker:
+
+Os endpoints ficam alocados com instâncias para fazer inferências a partir do último modelo treinado, dependendo do tempo que ficarem de pé, podem trazer custos altos, para apagar esses endpoints:
+
+```sh copy
+python delete_endpoints.py
+```
+
+<Callout type='info'>
+    - Os endpoints criados tem o nome da pipeline em seu nome.
+    - Também são necessárias as credenciais de acesso no env.
+</Callout>
+
+### Destruindo o resto com o terraform
+
+Por fim, podemos rodar no diretório `terraform`:
+
+```sh copy
+terraform destroy
+```
+
+</Steps>
+
+Assim a infraestrutura criada deve ter sido deletada por completo!

@@ -1,10 +1,18 @@
-## Diagrama da solução feita:
+## Diagrama da arquitetura:
 
 ![Imagem da solução](/diagrama_infra.png)
 
 ## Funcionamento
 
-Como pode ser visto no diagrama, o pipeline é ativado quando o repositório do codeCommit recebe um commit, esse commit vem do repositório do gitlab que fazemos um Push mirror para o CodeCommit. O CodePipeline é dividido em duas partes para o ambiente de **build** e em três partes para o ambiente de **deploy**, no ambiente de build, ele tem a etapa de **Source**, que recebe o código do repositório do CodeCommit e transforma ele em um .zip, em seguida, na etapa de **Build**, o aws codeBuild recebe esse .zip gerado na etapa anterior e executa uma série de comandos em uma instância EC2 que é disparada automaticamente, esses comandos são definidos no arquivo "modelbuild_buildspec.yml", nas pastas de pipeline, estão contidos os scripts que definem o pipeline do aws sageMaker, essa pipeline define etapas desde um processamento dos dados, o treinamento do modelo, até um mecanismo de avaliação do modelo. Caso esse modelo tenha desempenho maior ou igual ao esperado (essa métrica é definida na pipeline do sageMaker), esse modelo treinado é registrado no sagemaker, que salva o modelo em um S3, onde fica pronto para ser usado pela pipeline de deploy.
+Como ilustrado no diagrama, o pipeline é ativado quando o repositório do codeCommit recebe um commit, esse commit vem do repositório do gitlab que fazemos um Push mirror para o CodeCommit. O CodePipeline é dividido em duas partes para o ambiente de **build** e em três partes para o ambiente de **deploy**, no ambiente de build, ele tem a etapa de **Source**, que recebe o código do repositório do CodeCommit e transforma ele em um .zip, em seguida, na etapa de **Build**, o aws codeBuild recebe esse .zip gerado na etapa anterior e executa uma série de comandos em uma instância EC2 que é disparada automaticamente, esses comandos são definidos no arquivo `"modelbuild_buildspec.yml"`, nas pastas de pipeline, estão contidos os scripts que definem o pipeline do aws sageMaker, essa pipeline define etapas desde um processamento dos dados, o treinamento do modelo, até um mecanismo de avaliação do modelo. Caso esse modelo tenha desempenho maior ou igual ao esperado (essa métrica é definida na pipeline do sageMaker), esse modelo treinado é registrado no sagemaker, que salva o modelo em um S3, onde fica pronto para ser usado pela pipeline de deploy.
+
 Na pipeline de deploy, o script procura o último modelo registrado no sagemaker, e a partir de um template .yml, faz o deploy de um endpoint de staging, onde é possível fazer testes no modelo a partir da API do sagemaker, após testado, no console do CodePipeline, vai ter a opção de aprovar o deploy do modelo para um endpoint de produção, como pode ser visto na imagem abaixo. Aprovado o deploy, a pipeline vai seguir para seu último estagio: lançar o seu modelo em produção com uma API!
 
 ![Imagem aprovar deploy](/model_aprove_sagemaker.png)
+
+
+## Referência
+
+Foi usado como base e adaptado o seguinte repositório:
+
+https://github.com/aws-samples/aws-mlops-pipelines-terraform
