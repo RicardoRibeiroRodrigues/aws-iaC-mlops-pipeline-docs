@@ -16,6 +16,7 @@ git clone https://github.com/RicardoRibeiroRodrigues/AWS-IaC-mlops-pipeline
 
 <Callout type="warning" emoji="⚠️">
     O repositório deve estar vazio para não dar problema na hora de colocar os templates nele.
+    O repositório **deve** ter a branch definida em `variables.tf`
 </Callout>
 
 Siga o [tutorial do gitlab de como criar um projeto](https://docs.gitlab.com/ee/user/project/index.html#create-a-project)
@@ -67,7 +68,7 @@ Com essas saídas, podemos fazer o [**push mirror no gitlab**](/util/gitlab).
     ![Forcando o update](/force_update.png)
   </Tab>
   <Tab>
-    Altere alguma coisa para seu objetivo nos repositórios do gitlab na branch selecionada para pipeline, dê commit e push, você deve ver a pipeline iniciando em alguns minutos.
+    Altere alguma coisa para seu objetivo nos repositórios do gitlab **na branch selecionada para pipeline**, dê commit e push, você deve ver a pipeline iniciando em alguns minutos.
   </Tab>
 </Tabs>
 

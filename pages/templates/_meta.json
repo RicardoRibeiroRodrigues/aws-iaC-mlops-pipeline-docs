@@ -1,0 +1,4 @@
+{
+    "pipe_build": "Template para a Pipeline de Build",
+    "pipe_deploy": "Template para a Pipeline de Deploy"
+}
