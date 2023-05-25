@@ -16,6 +16,7 @@ git clone https://github.com/RicardoRibeiroRodrigues/AWS-IaC-mlops-pipeline
 
 <Callout type="warning" emoji="⚠️">
     O repositório deve estar vazio para não dar problema na hora de colocar os templates nele.
+    O repositório **deve** ter a branch definida em `variables.tf`
 </Callout>
 
 Siga o [tutorial do gitlab de como criar um projeto](https://docs.gitlab.com/ee/user/project/index.html#create-a-project)
@@ -58,6 +59,10 @@ No terminal, devem ter algumas saídas:
 
 Com essas saídas, podemos fazer o [**push mirror no gitlab**](/util/gitlab).
 
+<Callout type="warning" >
+  Lembre-se de criar a branch configurada nas variáveis do terraform.
+</Callout>
+
 ### Feito isso, a pipeline está no ar, agora você pode: [#testando]
 
 <Tabs items={['Forçar o update', 'Fazer commit']}>
@@ -67,7 +72,7 @@ Com essas saídas, podemos fazer o [**push mirror no gitlab**](/util/gitlab).
     ![Forcando o update](/force_update.png)
   </Tab>
   <Tab>
-    Altere alguma coisa para seu objetivo nos repositórios do gitlab na branch selecionada para pipeline, dê commit e push, você deve ver a pipeline iniciando em alguns minutos.
+    Altere alguma coisa para seu objetivo nos repositórios do gitlab **na branch selecionada para pipeline**, dê commit e push, você deve ver a pipeline iniciando em alguns minutos.
   </Tab>
 </Tabs>
 
@@ -75,7 +80,7 @@ Com essas saídas, podemos fazer o [**push mirror no gitlab**](/util/gitlab).
 
 <Callout type="warning" emoji="⚠️">
     Para o deploy e o build funcionarem, é necessário que a etapa anterior tenha sido feita para ambos os repositórios.
-    **É esperado também, que a primeira execução da pipeline de deploy falhe**, já que o modelo da etapa de build não deve ter sido registrado ainda, mas ao ter o código da pipeline de deploy no CodeCommit e o build ter sucesso, o próximo deploy dará certo também!
+    **É normal que a primeira execução da pipeline de deploy falhe**, já que o modelo da etapa de build pode não ter sido registrado ainda, mas ao ter o código da pipeline de deploy no CodeCommit e o build ter sucesso, é só selecionar para tentar novamente, que na segunda vez deve dar certo!
 </Callout>
 
 Paciência! é esperado que a pipeline demore um pouco, afinal, estamos criando a infraestrutura para cada etapa, e treinando um modelo, isso leva tempo!

@@ -1,0 +1,33 @@
+### Pipeline de build do modelo.
+
+O pipeline de build tem a seguinte estrutura de arquivos:
+
+```
+|-- CONTRIBUTING.md
+|-- pipelines
+|   |-- customer_churn
+|   |   |-- evaluate.py
+|   |   |-- __init__.py
+|   |   |-- pipeline.py
+|   |   `-- preprocess.py
+|   |-- get_pipeline_definition.py
+|   |-- __init__.py
+|   |-- run_pipeline.py
+|   |-- _utils.py
+|   `-- __version__.py
+|-- README.md
+|-- setup.cfg
+|-- setup.py
+|-- tests
+|   `-- test_pipelines.py
+`-- tox.ini
+```
+
+Dentro de `pipelines/customer_churn`, temos os arquivos que compõem a pipeline do SageMaker para o modelo, onde temos em `preprocess.py`, os pré-processamentos que fazemos antes de treinar o modelo, em `evaluate.py` temos o código para gerar um json com a avaliação do desempenho do modelo, que usamos para decidir se haverá ou não o deploy. Por fim, em `pipeline.py`, temos a [pipeline do SageMaker](https://sagemaker.readthedocs.io/en/stable/workflows/pipelines/sagemaker.workflow.pipelines.html) sendo definida todas as suas etapas, desde **o caminho para os dados no S3**, definimos o modelo que será utilizado (no exemplo XGBoost), até a etapa onde o modelo é registrado no SageMaker de acordo com seu desempenho (se o desempenho for maior que o threshold, ele será registrado).
+
+O resto dos arquivos dentro de `pipelines` servem apenas para para pegar o código da definição pipeline que definimos, fazer um parse e rodar, para que o código vá para o SageMaker e execute.
+
+Por fim, temos uma pasta de `tests`, onde é possível executar testes no código, se for necessário além da avaliação de desempenho do modelo.
+
+
+O código completo pode ser acessado em https://github.com/RicardoRibeiroRodrigues/AWS-IaC-mlops-pipeline/tree/main/templates/modelbuild_pipeline.

@@ -1,12 +1,13 @@
-import { Steps } from 'nextra-theme-docs'
- 
+import { Steps, Tab, Tabs } from 'nextra-theme-docs'
 
 # Utilizando a imagem do projeto:
 
 Para utilizar a imagem criada para o projeto, é necessário primeiro fazer o build nela:
 
-<Steps>
+<Tabs items={['Fazendo build local', 'Usando imagem do docker hub']}>
  
+<Tab>
+<Steps>
 ### Rode este comando na raiz do projeto:
  
 ```sh copy
@@ -16,9 +17,19 @@ docker build -t pipeline/terraform-proj .
 ### Em seguida para ativar a imagem:
  
 ```sh copy
-./run_docker.sh
+docker run -it -v $PWD:/app --rm pipeline/terraform-proj
 ```
- 
 </Steps>
+</Tab>
+
+<Tab>
+### Rode o comando:
+
+```sh copy
+docker run -it -v $PWD:/app --rm ricardorr7/mlops-pipeline:latest
+```
+</Tab>
+
+</Tabs>
 
 Pronto, agora pode voltar para a [criação da infra](/criando_infra#credenciais) se você estava nessa etapa.

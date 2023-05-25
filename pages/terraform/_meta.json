@@ -1,5 +1,6 @@
 {
     "index": "Infraestrutura como código!",
+    "var_pol_s3": "Variáveis, S3 e Service Role",
     "codeCommit": "AWS CodeCommit",
     "pipelineBuild": "Pipeline de build",
     "pipelineDeploy": "Pipeline de deploy"

@@ -1,0 +1,29 @@
+
+### Pipeline de deploy do modelo.
+
+O pipeline de deploy tem a seguinte estrutura de arquivos:
+
+```
+.
+├── README.md
+├── build.py
+├── endpoint-config-template.yml
+├── prod-config.json
+├── staging-config.json
+├── setup.py
+├── fix_model_permission.py
+└── test
+    ├── test.py
+    └── test_buildspec.yml
+```
+Arquivos mais notáveis:
+
+Em `prod-config.json` e `staging-config.json`, são configuradas as instâncias a serem utilizadas nas fases de prod e staging, podemos configurar o tipo da instância a ser utilizada no deploy, assim como a quantidade delas.
+
+No `build.py`, os arquivos de configuração `prod-config.json` e `staging-config.json` são carregados, são adicionados novos parâmetros, recebidos da pipeline neles, e são re-exportados com os novos parâmetros, com os novos valores adicionados, esses arquivos são utilizados para configurar o deploy do endpoint SageMaker utilizando o CloudFormation. Esse arquivo também se encarrega de obter o **arn** do último modelo aprovado do SageMaker, para fazer o deploy correto. 
+
+Em `endpoint-config-template.yml`, temos o yml do CloudFormation, que define a **stack** que será feita no deploy, configuramos nele o Modelo, as configurações do endpoint (numero de instâncias, tipo e até variante (serverless, AllTrafic...)), e por fim o Endpoint, que definimos o nome dele.
+
+Por fim, em `test\test_buildspec.yml` definimos **como** a pipeline em staging poderia testar o endpoint que estamos fazendo deploy, definindo, por exemplo quais arquivos rodar, que no caso foi definido que ele irá rodar `test/test.py`, que testa se o endpoint está de pé, porém é esperado que em pipelines mais complexas e com usos mais práticos, sejam colocados mais testes aqui, para capturar erros antes de fazer o deploy de produção.
+
+O código completo para este template está disponível em https://github.com/RicardoRibeiroRodrigues/AWS-IaC-mlops-pipeline/tree/main/templates/modeldeploy_pipeline.

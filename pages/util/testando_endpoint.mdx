@@ -1,8 +1,35 @@
+import { Callout } from 'nextra-theme-docs'
+import { Steps } from 'nextra-theme-docs'
 
 ## Testando o deploy do modelo
 
-O nome segue um padrão: 
+<Steps>
+### Veja o nome das variáveis no cloud formation:
+
+Indo no CloudFormation, em stacks, clique na stack desejada e vá em parameters.
+
+![Stack variables](/stage_project_name.png)
+
+
+### O nome tem o padrão:
+
 ```
-"{nome_projeto}-{stage_name}"
+"{pipeline_name}-{stage_name}"
 ```
-Ver o stage_name no cloud-formation, se deixou os valores intactos no projeto deve ser "aws-sagemaker-terraform-cicd-staging-0306"
+
+<Callout type='info'>
+Se você deixou os nomes intactos no terraform, o nome do endpoint de staging deve ser "aws-sagemaker-terraform-cicd-staging-0306"
+</Callout>
+
+### Testando o endpoint com o python
+
+Monte o nome com as variáveis no CloudFormation e o formato padrão, em seguida rode o comando:
+
+```sh
+python test_endpoint.py
+```
+Coloque o nome do endpoint no input do terminal, você deve ver duas saídas em seu console, uma é o dado de teste que está sendo enviado para a API, a segunda é a resposta da API, sendo a variável prevista pelo seu modelo em resposta aos dados enviados.
+
+</Steps>
+
+MAIS FÁCIL EM https://us-east-1.console.aws.amazon.com/sagemaker/home?region=us-east-1#/endpoints
