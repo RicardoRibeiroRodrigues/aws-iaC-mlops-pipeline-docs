@@ -1,0 +1,12 @@
+## Iterações para o projeto
+
+A partir do projeto feito, foram feitas algumas features adicionais, que não estavam na proposta original:
+
+- **Deploy serverless do modelo:**<br/>
+    Foi constatado que o maior custo dessa infraestrutura era o de deploy, já que você tinha que deixar pelo menos uma instância alocada para o endpoint, isso no longo prazo gerava altos custos, e simplesmente não fazia muito sentido deixar uma máquina rodando o tempo todo para um serviço que não tem tanta requisição assim, ao invés disso, poderíamos propor uma abordagem [serverless](https://www.redhat.com/pt-br/topics/cloud-native-apps/what-is-serverless), visando reduzir o custo. Pensando nisso feito na [branch serverless](https://github.com/RicardoRibeiroRodrigues/AWS-IaC-mlops-pipeline/tree/serverless) do projeto um código cloudformation para fazer um deploy básico serverless.
+
+- **Deploy com auto-scaling:**<br/>
+    No caso de os modelos que estão recebendo deploy já serem produtos de dados muito requisitados, podemos pensar em uma outra abordagem: um auto-scaling do endpoint, onde monitoramos o número de requisições ao endpoint, e se passar de um número X, definido no código, subimos mais uma máquina para balancear a carga. Assim fazemos com que o serviço aguente picos de requisição, e suporte o crescimento do uso do serviço automaticamente. Esse deploy foi implementado na [branch auto-scaling-deploy](https://github.com/RicardoRibeiroRodrigues/AWS-IaC-mlops-pipeline/tree/auto-scaling-deploy) do projeto, também utilizando o código do cloudformation, e fazendo algumas alterações na role de serviço.
+    Adicionalmente, foi feito um teste de carga utilizando `locust` no deploy feito com o código do repositório, e houve a confirmação do funcionamento do scale de acordo com numero de requisições por instância, como pode ser visto no log abaixo:
+
+![Log auto-scale](/auto_scale_bem_sucedido.png)
