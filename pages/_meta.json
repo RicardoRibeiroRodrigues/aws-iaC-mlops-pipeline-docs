@@ -2,7 +2,7 @@
   "index": "Introdução",
   "infraestrutura": "Infraestrutura",
   "terraform": "Terraform",
-  "templates": "Templates",
+  "templates_pipeline": "Templates Pipelines",
   "criando_infra": "Criando a Infraestrutura",
   "util": "Útil",
   "destruindo_infra": "Destruindo a Infraestrutura 😢",
